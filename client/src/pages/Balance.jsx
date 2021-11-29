@@ -18,7 +18,6 @@ const Balance = () => {
     const final = calculateBalance()
 
     return (
-
         <h1 className={final < 0 ? "minor" : "mayor"}>Balance: ${final}</h1>
     )
 }
