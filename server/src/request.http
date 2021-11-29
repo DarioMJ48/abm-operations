@@ -1,0 +1,68 @@
+###
+GET http://localhost:3010/ HTTP/1.1
+
+###
+GET http://localhost:3010/inflows HTTP/1.1
+
+###
+GET http://localhost:3010/inflows/1 HTTP/1.1
+
+###
+POST http://localhost:3010/inflows/add HTTP/1.1
+Content-Type: application/json
+
+{
+    "concept": "Pay day",
+    "amount": 600,
+    "date": "Sun May 11,2014",
+    "category": "Job"
+}
+
+###
+PUT http://localhost:3010/inflows/put/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "concept": "Canelo won",
+    "amount": 50,
+    "date": 28-11-2021,
+    "category": "Bets"
+}
+
+###
+DELETE http://localhost:3010/inflows/1 HTTP/1.1
+
+
+
+
+
+###
+GET http://localhost:3010/outflows HTTP/1.1
+
+###
+GET http://localhost:3010/outflows/1 HTTP/1.1
+
+###
+POST http://localhost:3010/outflows HTTP/1.1
+Content-Type: application/json
+
+{
+    "concept": "Membrillo",
+    "amount": 100,
+    "date": "28-11-2021",
+    "category": "Food"
+}
+
+###
+PUT http://localhost:3010/outflows/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "concept": "Batata",
+    "amount": 50,
+    "date": "28-11-2021",
+    "category": "Food"
+}
+
+###
+DELETE http://localhost:3010/outflows/1 HTTP/1.1
