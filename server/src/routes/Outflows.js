@@ -24,7 +24,7 @@ router.post('/outflows/add', async (req, res) => {
     console.log('Outflow added!')
 })
 
-router.put('/outflows/put/:id', async (req, res) => {
+router.put('/outflows/update/:id', async (req, res) => {
     const outflowId = req.params.id
     const outflowUpdatedData = req.body
     const outflowById = await Outflows.findOne({ where: { id: outflowId } })
@@ -36,6 +36,7 @@ router.put('/outflows/put/:id', async (req, res) => {
 router.delete('/outflows/delete/:id', async (req, res) => {
     const outflowId = req.params.id
     await Outflows.destroy({ where: { id: outflowId } })
+    res.send('Outflow deleted!')
     console.log('Outflow deleted!')
 })
 

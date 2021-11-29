@@ -1,6 +1,10 @@
 ###
 GET http://localhost:3010/ HTTP/1.1
 
+
+
+
+
 ###
 GET http://localhost:3010/inflows HTTP/1.1
 
@@ -19,7 +23,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3010/inflows/put/1 HTTP/1.1
+PUT http://localhost:3010/inflows/update/1 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -30,7 +34,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3010/inflows/1 HTTP/1.1
+DELETE http://localhost:3010/inflows/delete/1 HTTP/1.1
 
 
 
@@ -43,7 +47,7 @@ GET http://localhost:3010/outflows HTTP/1.1
 GET http://localhost:3010/outflows/1 HTTP/1.1
 
 ###
-POST http://localhost:3010/outflows HTTP/1.1
+POST http://localhost:3010/outflows/add HTTP/1.1
 Content-Type: application/json
 
 {
@@ -54,7 +58,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3010/outflows/1 HTTP/1.1
+PUT http://localhost:3010/outflows/update/1 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -65,4 +69,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3010/outflows/1 HTTP/1.1
+DELETE http://localhost:3010/outflows/delete/1 HTTP/1.1

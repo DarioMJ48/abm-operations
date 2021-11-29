@@ -15,7 +15,7 @@ const EditOperation = () => {
     const initialValues = {
         concept: opToEdit.concept,
         amount: opToEdit.amount,
-        date: Date.parse(opToEdit.date),
+        date: new Date(opToEdit.date),
         type: opToEdit.type,
         category: opToEdit.category
     }
@@ -28,8 +28,11 @@ const EditOperation = () => {
         category: yup.string().required('Field required!')
     })
 
-    const onSubmit = data => {
-        axios.put(`http://localhost:3010/${data.type}s/put/${opToEdit.id}`, data)
+    const onSubmit = (data) => {
+        axios.put(`http://localhost:3010/${data.type}s/update/${opToEdit.id}`, data)
+            .then(res => console.log(`Operation updated! (${res.status} ${res.statusText})`))
+            .catch(err => console.log(`ERROR! (${err.response.status} ${err.response.statusText})`))
+
         setOpsListUpdated(true)
         history.push("/")
     }
@@ -50,7 +53,7 @@ const EditOperation = () => {
                     </div>
                     <div className="mb-3">
                         <label />Date
-                        <ErrorMessage name="concept" component="div" class="text-danger" />
+                        <ErrorMessage name="date" component="div" class="text-danger" />
                         <DatePicker
                             selected={values.date}
                             dateFormat="MM-dd-yyyy"
@@ -77,7 +80,7 @@ const EditOperation = () => {
                             <option>Illegal</option>
                         </Field>
                     </div>
-                    <button type="submit" class="btn btn-success w-100">Add operation!</button>
+                    <button type="submit" class="btn btn-success w-100">Update operation!</button>
                 </Form>
             )}
         </Formik >

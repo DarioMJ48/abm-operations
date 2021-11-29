@@ -24,7 +24,7 @@ router.post('/inflows/add', async (req, res) => {
     console.log('Inflow added!')
 })
 
-router.put('/inflows/put/:id', async (req, res) => {
+router.put('/inflows/update/:id', async (req, res) => {
     const inflowId = req.params.id
     const inflowUpdatedData = req.body
     const inflowById = await Inflows.findOne({ where: { id: inflowId } })
@@ -36,6 +36,7 @@ router.put('/inflows/put/:id', async (req, res) => {
 router.delete('/inflows/delete/:id', async (req, res) => {
     const inflowId = req.params.id
     await Inflows.destroy({ where: { id: inflowId } })
+    res.send('Inflow deleted!')
     console.log('Inflow deleted!')
 })
 

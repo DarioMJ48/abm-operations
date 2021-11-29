@@ -15,6 +15,9 @@ const useOperations = () => {
 
     const handleDelete = (id, opType) => {
         axios.delete(`http://localhost:3010/${opType}s/delete/` + id)
+            .then(res => console.log(`Operation deleted! (${res.status} ${res.statusText})`))
+            .catch(err => console.log(`ERROR! (${err.response.status} ${err.response.statusText})`))
+
         setOpsListUpdated(true)
     }
 

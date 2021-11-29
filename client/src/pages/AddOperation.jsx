@@ -13,9 +13,9 @@ const AddOperation = () => {
     const history = useHistory()
 
     const initialValues = {
-        concept: "",
-        amount: 0,
-        date: Date.parse(new Date()),
+        concept: "WASD",
+        amount: 1,
+        date: new Date(),
         type: "Inflow",
         category: "Food"
     }
@@ -30,6 +30,9 @@ const AddOperation = () => {
 
     const onSubmit = data => {
         axios.post(`http://localhost:3010/${data.type}s/add`, data)
+            .then(res => console.log(`Operation added! (${res.status} ${res.statusText})`))
+            .catch(err => console.log(`ERROR! (${err.response.status} ${err.response.statusText})`))
+
         setOpsListUpdated(true)
         history.push("/")
     }
@@ -50,7 +53,7 @@ const AddOperation = () => {
                     </div>
                     <div className="mb-3">
                         <label />Date
-                        <ErrorMessage name="concept" component="div" class="text-danger" />
+                        <ErrorMessage name="date" component="div" class="text-danger" />
                         <DatePicker
                             selected={values.date}
                             dateFormat="MMMM d, yyyy"
@@ -86,4 +89,3 @@ const AddOperation = () => {
 }
 
 export default AddOperation
-
