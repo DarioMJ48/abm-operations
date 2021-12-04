@@ -4,22 +4,20 @@ import { AllContext } from '../contexts/AllContext'
 import '../styles/balance.css'
 
 const Balance = () => {
-    const { opsI, opsO } = useContext(AllContext)
+  const { ops } = useContext(AllContext)
+
+  const calculateBalance = () => {
     let inflows = 0
     let outflows = 0
+    ops.filter((op) => op.type == 'Inflow').map(op => inflows += op.amount)
+    ops.filter((op) => op.type == 'Outflow').map(op => outflows += op.amount)
+    const balance = inflows - outflows
+    return balance
+  }
 
-    const calculateBalance = () => {
-        opsO.map(op => { outflows += op.amount })
-        opsI.map(op => { inflows += op.amount })
-        let balance = inflows - outflows
-        return balance
-    }
+  const final = calculateBalance()
 
-    const final = calculateBalance()
-
-    return (
-        <h1 className={final < 0 ? "minor" : "mayor"}>Balance: ${final}</h1>
-    )
+  return <h1 className={final < 0 ? 'minor' : 'mayor'}>Balance: ${final}</h1>
 }
 
 export default Balance

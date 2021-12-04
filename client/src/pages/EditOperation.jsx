@@ -8,8 +8,8 @@ import * as yup from 'yup'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 
-const EditOperation = () => {
-    const { setOpsListUpdated, opToEdit } = useContext(AllContext)
+const EditOperation = () => { 
+    const { opToEdit, opsValues, setOpsValues, setOpsListUpdated } = useContext(AllContext)
     const history = useHistory()
 
     const initialValues = {
@@ -27,12 +27,13 @@ const EditOperation = () => {
         type: yup.string().required('Field required!'),
         category: yup.string().required('Field required!')
     })
-
+    
     const onSubmit = (data) => {
-        axios.put(`http://localhost:3010/${data.type}s/update/${opToEdit.id}`, data)
-            .then(res => console.log(`Operation updated! (${res.status} ${res.statusText})`))
+        axios.put(`http://localhost:3010/operations/update/${opToEdit.id}`, data)
             .catch(err => console.log(`ERROR! (${err.response.status} ${err.response.statusText})`))
-
+            .then(res => console.log(`Operation updated! (${res.status} ${res.statusText})`))
+        
+        setOpsValues({ type: 'All', category: 'All' })
         setOpsListUpdated(true)
         history.push("/")
     }
