@@ -4,6 +4,7 @@ ABM Operations!
 Working on login/register, should be ready today (5/12)!
 
 1.create database "abmoperations_db"
+
 2.npm install (both client and server)
 
 (further explanations and a sql file soon...)
