@@ -10,8 +10,11 @@ ABM Operations!
 Login/register totally funcional server side, with some issues on client side:
 
 1.Register
+
 2.Login
+
 3.In order to logout, clear the cookies in localhost:3000 (console -> Applications -> Cookies)
+
 4.Of course I'll finish this login/register system soon, I just wanted to commit
 
 (further explanations and a sql file soon...)
