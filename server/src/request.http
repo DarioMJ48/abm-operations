@@ -2,6 +2,33 @@
 GET http://localhost:3010/ HTTP/1.1
 
 ###
+GET http://localhost:3010/users HTTP/1.1
+
+###
+GET http://localhost:3010/users/1 HTTP/1.1
+
+###
+POST http://localhost:3010/users/register HTTP/1.1
+Content-Type: application/json
+
+{   
+    "username": "DarioMJ48",
+    "password": "1234"
+}
+
+###
+POST http://localhost:3010/users/login
+Content-Type: application/json
+
+{
+    "username": "DarioMJ48",
+    "password": "1234"
+}
+
+###
+GET http://localhost:3010/userslogin
+
+###
 GET http://localhost:3010/operations HTTP/1.1
 
 ###
@@ -12,12 +39,12 @@ POST http://localhost:3010/operations/add HTTP/1.1
 Content-Type: application/json
 
 {   
-    
-    "concept": "Dulce de Membrillo",
+    "concept": "Dulce de membrillo",
     "amount": 150,
     "date": "Mon Nov 15,2021",
     "type": "Outflow",
-    "category": "Food"
+    "category": "Food",
+    "UserUserId": 1
 }
 
 ###
@@ -25,7 +52,7 @@ PUT http://localhost:3010/operations/update/1 HTTP/1.1
 Content-Type: application/json
 
 {   
-    "concept": "Extra hours",
+    "concept": "Dulce de batata",
     "amount": 250,
     "date": "Fri Dec 15,2021",
     "type": "Outflow",

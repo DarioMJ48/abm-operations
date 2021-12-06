@@ -17,7 +17,7 @@ const EditOperation = () => {
         amount: opToEdit.amount,
         date: new Date(opToEdit.date),
         type: opToEdit.type,
-        category: opToEdit.category
+        category: opToEdit.category,
     }
 
     const validationSchema = yup.object().shape({
@@ -29,13 +29,16 @@ const EditOperation = () => {
     })
     
     const onSubmit = (data) => {
-        axios.put(`http://localhost:3010/operations/update/${opToEdit.id}`, data)
-            .catch(err => console.log(`ERROR! (${err.response.status} ${err.response.statusText})`))
-            .then(res => console.log(`Operation updated! (${res.status} ${res.statusText})`))
-        
+        axios.put(`http://localhost:3010/operations/update/${opToEdit.operationId}`, data)
+            .then(res => console.log(`Operation updated! `))
+            .catch(err => console.log(err))
+            
         setOpsValues({ type: 'All', category: 'All' })
         setOpsListUpdated(true)
-        history.push("/")
+        setTimeout(function () {
+            setOpsListUpdated(true)
+        }, 3000)
+        history.push("/abm")
     }
 
     return (

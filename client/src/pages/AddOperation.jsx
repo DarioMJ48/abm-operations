@@ -9,7 +9,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
 const AddOperation = () => {
-  const { setOpsValues, setOpsListUpdated } = useContext(AllContext)
+  const { setOpsValues, setOpsListUpdated, userId } = useContext(AllContext)
   const history = useHistory()
 
   const initialValues = {
@@ -18,6 +18,7 @@ const AddOperation = () => {
     date: new Date(),
     type: 'Inflow',
     category: 'Food',
+    UserUserId: userId
   }
 
   const validationSchema = yup.object().shape({
@@ -31,11 +32,14 @@ const AddOperation = () => {
   const onSubmit = (data) => {
     axios.post('http://localhost:3010/operations/add', data)
       .then((res) => console.log(`Operation added! (${res.status} ${res.statusText})`))
-      .catch(err => console.log(`ERROR! (${err})`))
+      .catch(err => console.log(err))
 
     setOpsValues({ type: 'All', category: 'All' })
     setOpsListUpdated(true)
-    history.push('/')
+    setTimeout(function () {
+      setOpsListUpdated(true)
+  }, 3000)
+    history.push('/abm')
   }
 
   return (

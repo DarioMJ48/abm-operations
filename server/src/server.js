@@ -1,12 +1,31 @@
 const express = require('express')
 const cors = require('cors')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
 
 const app = express()
-app.use(cors())
-app.use(express.json())
 
-const operationsRouter = require('./routes/Operations')
-app.use('/', operationsRouter)
+app.use(cors({
+  origin: ["http://localhost:3001"], // env
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}))
+app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cookieParser())
+app.use(session({
+  key: "userId",
+  secret: "secret", // change it later!
+  resave: true,
+  saveUninitialized: false,
+  cookie: {
+    expires: 60 * 60 * 24
+  }
+}))
+
+const abmoperationsRouter = require('./routes/ABMOperations')
+app.use('/', abmoperationsRouter)
 
 const path = require('path')
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') })

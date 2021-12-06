@@ -1,3 +1,5 @@
+import React, { useContext } from 'react'
+import { AllContext } from '../contexts/AllContext'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 
@@ -8,6 +10,7 @@ export const ACTIONS = {
 }
 
 const useOperationsReducer = (state, action) => {
+  const { setOpsListUpdated } = useContext(AllContext)
   const history = useHistory()
 
   switch (action.type) {
@@ -21,7 +24,10 @@ const useOperationsReducer = (state, action) => {
       axios.delete(`http://localhost:3010/operations/delete/${action.payload.id}`)
         .catch((err) => console.log(`ERROR! (${err.response.status} ${err.response.statusText})`))
         .then((res) => console.log(`Operation deleted! (${res.status} ${res.statusText})`))
-      break;          
+        setTimeout(function () {
+          setOpsListUpdated(true)
+      }, 3000)
+      break;
     default:
         throw new Error()
     }

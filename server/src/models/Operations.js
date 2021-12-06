@@ -1,8 +1,10 @@
+const Users = require('./Users')
+
 module.exports = (sequelize, DataTypes) => {
   const Operations = sequelize.define(
     'Operations',
     {
-      id: {
+      operationId: {
         type: DataTypes.INTEGER,
         setDefaultValue: DataTypes.INTEGER,
         autoIncrement: true,
@@ -27,11 +29,18 @@ module.exports = (sequelize, DataTypes) => {
       category: {
         type: DataTypes.STRING,
         allowNull: false,
-      },
+      }
     },
     {
       timestamps: true,
     }
   )
+  Operations.associate = models => {
+    Operations.belongsTo(models.Users, {
+      foreignKey: {
+        allowNull: false
+      }
+    })
+  }
   return Operations
 }

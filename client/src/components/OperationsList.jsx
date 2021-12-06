@@ -4,7 +4,7 @@ import Loading from './Loading'
 import useOperationsReducer, { ACTIONS } from '../reducers/useOperationsReducer'
 
 const Operations = () => {
-  const { ops, opsValues, setOpToEdit, setOpsValues, setOpsListUpdated, loading } = useContext(AllContext)
+  const { ops, opsValues, setOpToEdit, setOpsValues, setOpsListUpdated, loading, user } = useContext(AllContext)
   const opsToRender = useRef([])
   const [state, dispatch] = useReducer(useOperationsReducer, {})
   
@@ -76,7 +76,7 @@ const Operations = () => {
               <td>
                 <div className="mb-1">
                   <button onClick={() => handleUpdate(op)} className="btn btn-dark mx-1">Edit</button>
-                  <button onClick={() => { handleDelete(op.id) }} className="btn btn-danger mx-1">DEL</button>
+                  <button onClick={() => { handleDelete(op.operationId) }} className="btn btn-danger mx-1">DEL</button>
                 </div>
               </td>
             </tr>

@@ -9,18 +9,20 @@ function App() {
   const [opsValues, setOpsValues] = useState({ type: 'All', category: 'All' })
   const [opsListUpdated, setOpsListUpdated] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [username, setUsername] = useState()
+  const [userId, setUserId] = useState()
 
   useEffect(() => {
-    axios.get('http://localhost:3010/operations')
-      .then((res) => setOps(res.data.reverse()))
+    axios.get(`http://localhost:3010/users/${userId}`)
+      .then((res) => setOps(res.data.Operations.reverse()))
       .catch(err => console.log(`ERROR! (${err})`))
       
     setOpsListUpdated(false)
     setLoading(false)
-  }, [opsListUpdated, setOpsValues])
+  }, [opsListUpdated, setOpsListUpdated, opsValues, username])
 
   return (
-    <AllContext.Provider value={{ ops, opToEdit, setOpToEdit, opsValues, setOpsValues, setOpsListUpdated, loading }}>
+    <AllContext.Provider value={{ ops, opToEdit, setOpToEdit, opsValues, setOpsValues, setOpsListUpdated, loading, username, setUsername, userId, setUserId }}>
       <AppRouter />
     </AllContext.Provider>
   )
