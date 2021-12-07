@@ -13,7 +13,7 @@ const Register = () => {
 
     useEffect(() => {
         axios.get('http://localhost:3010/userslogin')
-            .then((response) => { response.data.user ? console.log(response.data.user) : console.log('No user logged in.') })
+            .then((response) => { response.data.user ? console.log('User logged in.') : console.log('No user logged in.') })
             .catch(err => console.log(err))
     }, [])
 
@@ -30,19 +30,16 @@ const Register = () => {
     const onSubmit = (data) => {
         axios.post('http://localhost:3010/users/login', data)
             .then(res => {
-                if (res.data) {
+                if (res.data.userId) {
                     setUsername(res.data.username)
                     setUserId(res.data.userId)
+                    history.push("/abm")
+                    setTimeout(() => { setOpsListUpdated(true) }, 1000)    
                 } else {
-                    setUsername(res.data)
+                    alert(res.data)
                 }
             })
             .catch(err => console.log(err))
-        
-        history.push("/abm")
-        setTimeout(function () {
-            setOpsListUpdated(true)
-        }, 3000)
     }
 
     return (
