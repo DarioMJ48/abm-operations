@@ -30,7 +30,7 @@ const Register = () => {
     const onSubmit = (data) => {
         axios.post('http://localhost:3010/users/login', data)
             .then(res => {
-                if (res.data.userId) {
+                if (typeof res.data === 'object' && res.data !== null) {
                     setUsername(res.data.username)
                     setUserId(res.data.userId)
                     history.push("/abm")
