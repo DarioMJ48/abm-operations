@@ -16,9 +16,6 @@ const Register = () => {
         username: yup.string().required('Field required!'),
         password: yup.string().required('Field required!'),
     })
-
-    
-    
     
     const onSubmit = (data) => {
         let registeredUsers = []
@@ -29,9 +26,11 @@ const Register = () => {
             .catch(err => console.log(err))
         
         setTimeout(() => {
-            registeredUsers.map(registeredUser => {
-                if (registeredUser.username === data.username) usernameInUse = true                 
-            })
+            if (Array.isArray(registeredUsers)) {
+                registeredUsers.map(registeredUser => {
+                    if (registeredUser.username === data.username) usernameInUse = true                 
+                })
+            }
         }, 500)
 
         setTimeout(() => {
