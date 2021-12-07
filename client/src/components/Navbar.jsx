@@ -1,9 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { AllContext } from '../contexts/AllContext'
+import { Link } from 'react-router-dom'
 
-const Header = () => {
+const Navbar = () => {
     const {username} = useContext(AllContext)
     return (
         <nav className="navbar navbar-dark bg-dark mb-4">
@@ -23,4 +22,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default Navbar

@@ -3,11 +3,13 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
+var FileStore = require('session-file-store')(session);
+
 
 const app = express()
 
 app.use(cors({
-  origin: ["http://localhost:3001"], // env
+  origin: ["http://localhost:3000"], // env
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }))
@@ -17,8 +19,9 @@ app.use(cookieParser())
 app.use(session({
   key: "userId",
   secret: "secret", // change it later!
-  resave: true,
+  resave: false,
   saveUninitialized: false,
+  store: new FileStore(),
   cookie: {
     expires: 60 * 60 * 24
   }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import axios from 'axios'
 import { AllContext } from './contexts/AllContext'
 import AppRouter from './routes/AppRouter'
@@ -11,7 +11,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState()
   const [userId, setUserId] = useState()
-
+  
   useEffect(() => {
     axios.get(`http://localhost:3010/users/${userId}`)
       .then((res) => setOps(res.data.Operations.reverse()))

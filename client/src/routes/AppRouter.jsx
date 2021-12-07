@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Balance from '../components/Balance'
 import OperationsList from '../components/OperationsList'
@@ -13,6 +13,9 @@ const AppRouter = () => {
     <Router>
       <Switch>
         <Route exact path="/" render={() => (
+          <Redirect to="register" />
+        )} />
+        <Route exact path="/register" render={() => (
           <div className="container w-50">
             <Register />
           </div>

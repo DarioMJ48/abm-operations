@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { AllContext } from '../contexts/AllContext'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
@@ -22,8 +22,9 @@ const useOperationsReducer = (state, action) => {
       break;
     case ACTIONS.DELETE:
       axios.delete(`http://localhost:3010/operations/delete/${action.payload.id}`)
-        .catch((err) => console.log(`ERROR! (${err.response.status} ${err.response.statusText})`))
         .then((res) => console.log(`Operation deleted! (${res.status} ${res.statusText})`))
+        .catch((err) => console.log(err))
+        
         setTimeout(function () {
           setOpsListUpdated(true)
       }, 3000)
