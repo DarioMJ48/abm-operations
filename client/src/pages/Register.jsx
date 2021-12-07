@@ -17,12 +17,34 @@ const Register = () => {
         password: yup.string().required('Field required!'),
     })
 
+    
+    
+    
     const onSubmit = (data) => {
-        axios.post('http://localhost:3010/users/register', data)
-            .then(res => console.log(`User created! (${res.status} ${res.statusText})`))
+        let registeredUsers = []
+        let usernameInUse = false
+
+        axios.get('http://localhost:3010/users')
+            .then(res => registeredUsers = res.data)
             .catch(err => console.log(err))
+        
+        setTimeout(() => {
+            registeredUsers.map(registeredUser => {
+                if (registeredUser.username === data.username) usernameInUse = true                 
+            })
+        }, 500)
+
+        setTimeout(() => {
+            if (usernameInUse) {
+                alert('Username already in use!')
+            } else {
+                axios.post('http://localhost:3010/users/register', data)
+                    .then(res => console.log(`User created! (${res.status} ${res.statusText})`))
+                    .catch(err => console.log(err))
                 
-        history.push("/login")
+                history.push("/login")
+            }
+        }, 1000)
     }
 
     return (

@@ -36,7 +36,7 @@ const Register = () => {
                     history.push("/abm")
                     setTimeout(() => { setOpsListUpdated(true) }, 1000)    
                 } else {
-                    alert(res.data)
+                    alert('Wrong username and/or password!')
                 }
             })
             .catch(err => console.log(err))
