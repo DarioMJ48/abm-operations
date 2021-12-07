@@ -13,9 +13,9 @@ Register/Log In totally functional server side, with some issues on client side:
 
 1.Register
 
-2.Login
+2.Log In
 
-3.No Logout for the moment. In order to Log In with different credentials, simply go back to http://localhost:3000/login
+3.No Log Out for the moment. In order to Log In with different credentials, simply go back to http://localhost:3000/login
 
 (I'll be finishing the register/login/logout + routes (protection) + DB improvements + JWT soon)
 
