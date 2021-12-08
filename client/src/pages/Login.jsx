@@ -12,18 +12,18 @@ const Register = () => {
     axios.defaults.withCredentials = true
 
     useEffect(() => {
-        axios.get('http://localhost:3010/userslogin')
-            .then((response) => { response.data.user ? console.log('User logged in.') : console.log('No user logged in.') })
+        axios.get('http://localhost:3010/users/checklogin')
+            .then((response) => { response.data.user ? console.log('USER LOGGED IN.') : console.log('NO USER LOGGED IN.') })
             .catch(err => console.log(err))
     }, [])
 
     const initialValues = {
-        username: "",
+        email: "",
         password: "",
     }
 
     const validationSchema = yup.object().shape({
-        username: yup.string().required('Field required!'),
+        email: yup.string().email('Invalid e-mail!').required('Field required!'),
         password: yup.string().required('Field required!'),
     })
 
@@ -32,11 +32,12 @@ const Register = () => {
             .then(res => {
                 if (typeof res.data === 'object' && res.data !== null) {
                     setUsername(res.data.username)
-                    setUserId(res.data.userId)
+                    setUserId(res.data.id)
+                    console.log(res.data.id)
                     history.push("/abm")
                     setTimeout(() => { setOpsListUpdated(true) }, 1000)    
                 } else {
-                    alert('Wrong username and/or password!')
+                    alert('INCORRET USERNAME OR PASSWORD.')
                 }
             })
             .catch(err => console.log(err))
@@ -48,9 +49,9 @@ const Register = () => {
         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
             <Form>
                 <div className="mb-3">
-                    <label />Username
-                    <ErrorMessage name="username" component="div" className="text-danger" />
-                    <Field name="username" placeholder="Username..." className="form-control" />
+                    <label />E-mail
+                    <ErrorMessage name="email" component="div" className="text-danger" />
+                    <Field name="email" placeholder="E-mail..." className="form-control" />
                 </div>
                 <div className="mb-3">
                     <label />Password

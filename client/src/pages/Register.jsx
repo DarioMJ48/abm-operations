@@ -9,11 +9,13 @@ const Register = () => {
 
     const initialValues = {
         username: "",
-        password: "",
+        email: "",
+        password: ""
     }
 
     const validationSchema = yup.object().shape({
         username: yup.string().required('Field required!'),
+        email: yup.string().email('Invalid e-mail!').required('Field required!'),
         password: yup.string().required('Field required!'),
     })
     
@@ -21,7 +23,7 @@ const Register = () => {
         let registeredUsers = []
         let usernameInUse = false
 
-        axios.get('http://localhost:3010/users')
+        axios.get('http://localhost:3010/users/all')
             .then(res => registeredUsers = res.data)
             .catch(err => console.log(err))
         
@@ -55,6 +57,11 @@ const Register = () => {
                     <label />Username
                     <ErrorMessage name="username" component="div" className="text-danger" />
                     <Field name="username" placeholder="Username..." className="form-control" />
+                </div>
+                <div className="mb-3">
+                    <label />E-mail
+                    <ErrorMessage name="email" component="div" className="text-danger" />
+                    <Field name="email" placeholder="E-mail..." className="form-control" />
                 </div>
                 <div className="mb-3">
                     <label />Password

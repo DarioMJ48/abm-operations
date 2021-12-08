@@ -2,10 +2,10 @@
 GET http://localhost:3010/ HTTP/1.1
 
 ###
-GET http://localhost:3010/users HTTP/1.1
+GET http://localhost:3010/users/all HTTP/1.1
 
 ###
-GET http://localhost:3010/users/1 HTTP/1.1
+GET http://localhost:3010/users/id/1 HTTP/1.1
 
 ###
 POST http://localhost:3010/users/register HTTP/1.1
@@ -13,6 +13,7 @@ Content-Type: application/json
 
 {   
     "username": "DarioMJ48",
+    "email": "hhbrkhhzxsgszdxqgu@nvhrw.com",
     "password": "1234"
 }
 
@@ -21,18 +22,18 @@ POST http://localhost:3010/users/login
 Content-Type: application/json
 
 {
-    "username": "DarioMJ48",
+    "email": "hhbrkhhzxsgszdxqgu@nvhrw.com",
     "password": "1234"
 }
 
 ###
-GET http://localhost:3010/userslogin
+GET http://localhost:3010/users/checklogin
 
 ###
-GET http://localhost:3010/operations HTTP/1.1
+GET http://localhost:3010/operations/all HTTP/1.1
 
 ###
-GET http://localhost:3010/operations/1 HTTP/1.1
+GET http://localhost:3010/operations/id/1 HTTP/1.1
 
 ###
 POST http://localhost:3010/operations/add HTTP/1.1
@@ -44,7 +45,7 @@ Content-Type: application/json
     "date": "Mon Nov 15,2021",
     "type": "Outflow",
     "category": "Food",
-    "UserUserId": 1
+    "UserId": "1"
 }
 
 ###
@@ -56,7 +57,7 @@ Content-Type: application/json
     "amount": 250,
     "date": "Fri Dec 15,2021",
     "type": "Outflow",
-    "category": "Job"
+    "category": "Food"
 }
 
 ###

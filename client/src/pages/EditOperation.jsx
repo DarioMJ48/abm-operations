@@ -29,7 +29,7 @@ const EditOperation = () => {
     })
     
     const onSubmit = (data) => {
-        axios.put(`http://localhost:3010/operations/update/${opToEdit.operationId}`, data)
+        axios.put(`http://localhost:3010/operations/update/${opToEdit.id}`, data)
             .then(res => console.log(`Operation updated! `))
             .catch(err => console.log(err))
             

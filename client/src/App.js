@@ -15,13 +15,13 @@ function App() {
   const [userId, setUserId] = useLocalStorage('id', '')
   
   useEffect(() => {
-    axios.get(`http://localhost:3010/users/${userId}`)
+    axios.get(`http://localhost:3010/users/id/${userId}`)
       .then((res) => setOps(res.data.Operations.reverse()))
-      .catch(err => console.log(`ERROR! (${err})`))
+      .catch(error => console.error(error))
       
     setOpsListUpdated(false)
     setLoading(false)
-  }, [opsListUpdated, setOpsListUpdated, opsValues, username])
+  }, [opsListUpdated, setOpsListUpdated, opsValues, userId])
 
   return (
     <AllContext.Provider value={{ ops, opToEdit, setOpToEdit, opsValues, setOpsValues, setOpsListUpdated, loading, username, setUsername, userId, setUserId}}>

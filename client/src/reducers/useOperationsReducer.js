@@ -27,7 +27,7 @@ const useOperationsReducer = (state, action) => {
         
         setTimeout(function () {
           setOpsListUpdated(true)
-      }, 3000)
+      }, 1000)
       break;
     default:
         throw new Error()

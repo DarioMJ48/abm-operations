@@ -40,12 +40,12 @@ const Operations = () => {
     <>
       <h3 className="mb-3">Operations</h3>
       <select className="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name ="type" onChange={handleChange}>
-        <option value="All" defaultValue>{opsValues.type}</option>
+        <option value="All" defaultValue>All</option>
         <option value="Inflow">Inflows</option>
         <option value="Outflow">Outflows</option>
       </select>
       <select className="form-select" aria-label="Default select example" name ="category" onChange={handleChange}>
-        <option value="All" defaultValue>{opsValues.category}</option>
+        <option value="All" defaultValue>All</option>
         <option value="Food">Food</option>
         <option value="Bets">Bets</option>
         <option value="Going out">Going out</option>
@@ -76,7 +76,7 @@ const Operations = () => {
               <td>
                 <div className="mb-1">
                   <button onClick={() => handleUpdate(op)} className="btn btn-dark mx-1">Edit</button>
-                  <button onClick={() => { handleDelete(op.operationId) }} className="btn btn-danger mx-1">DEL</button>
+                  <button onClick={() => { handleDelete(op.id) }} className="btn btn-danger mx-1">DEL</button>
                 </div>
               </td>
             </tr>

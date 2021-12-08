@@ -18,7 +18,7 @@ const AddOperation = () => {
     date: new Date(),
     type: 'Inflow',
     category: 'Food',
-    UserUserId: userId
+    UserId: userId
   }
 
   const validationSchema = yup.object().shape({

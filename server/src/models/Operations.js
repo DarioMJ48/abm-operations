@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   const Operations = sequelize.define(
     'Operations',
     {
-      operationId: {
+      id: {
         type: DataTypes.INTEGER,
         setDefaultValue: DataTypes.INTEGER,
         autoIncrement: true,
