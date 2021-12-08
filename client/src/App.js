@@ -1,6 +1,8 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { AllContext } from './contexts/AllContext'
+import useLocalStorage from './hooks/useLocalStorage'
+
 import AppRouter from './routes/AppRouter'
 
 function App() {
@@ -9,8 +11,8 @@ function App() {
   const [opsValues, setOpsValues] = useState({ type: 'All', category: 'All' })
   const [opsListUpdated, setOpsListUpdated] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [username, setUsername] = useState()
-  const [userId, setUserId] = useState()
+  const [username, setUsername] = useLocalStorage('username', '')
+  const [userId, setUserId] = useLocalStorage('id', '')
   
   useEffect(() => {
     axios.get(`http://localhost:3010/users/${userId}`)
@@ -22,7 +24,7 @@ function App() {
   }, [opsListUpdated, setOpsListUpdated, opsValues, username])
 
   return (
-    <AllContext.Provider value={{ ops, opToEdit, setOpToEdit, opsValues, setOpsValues, setOpsListUpdated, loading, username, setUsername, userId, setUserId }}>
+    <AllContext.Provider value={{ ops, opToEdit, setOpToEdit, opsValues, setOpsValues, setOpsListUpdated, loading, username, setUsername, userId, setUserId}}>
       <AppRouter />
     </AllContext.Provider>
   )

@@ -7,7 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
 
 const Register = () => {
-    const { setOpsListUpdated, setUsername, setUserId } = useContext(AllContext)
+    const { setOpsListUpdated, setUsername, setUserId, setIdUser } = useContext(AllContext)
     const history = useHistory()
     axios.defaults.withCredentials = true
 
