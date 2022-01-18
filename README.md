@@ -9,10 +9,6 @@ ABM Operations!
 
 (client at http://localhost:3000 & server at http://localhost:3010)
 
-Register/Log In totally functional now!
-
-(I'll be finishing the routes (protection) + DB improvements + JWT soon)
-
-<img src="https://user-images.githubusercontent.com/52510538/144874138-74d83d51-0de9-437b-ba05-f41c312287db.png">
+<img src="https://user-images.githubusercontent.com/52510538/149858564-ba338432-e880-4f89-b79d-e545d5a101e9.png">
 
 WORK IN PROGRESS...
