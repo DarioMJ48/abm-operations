@@ -31,9 +31,6 @@ const Navbar = () => {
                         {username}
                     </li>
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a className="dropdown-item" href="#">Action</a></li>
-                        <li><a className="dropdown-item" href="#">Another action</a></li>
-                        <li><hr className="dropdown-divider" /></li>
                         <li><button className="dropdown-item" onClick={logout}>LOGOUT</button></li>
                     </ul>
                 </h3>

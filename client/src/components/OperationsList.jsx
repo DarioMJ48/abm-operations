@@ -1,25 +1,32 @@
-import React, { useRef, useReducer} from 'react'
-import useOperationsReducer, { ACTIONS } from '../reducers/useOperationsReducer'
-import { useSelector, useDispatch } from 'react-redux'
-import { setOpToEdit } from '../redux/opToEdit'
-import { setOpsValues } from '../redux/opsValues'
-import { setOpsListUpdated } from '../redux/opsListUpdated'
+import React, { useState, useEffect, useContext } from 'react'
+import { AllContext } from '../contexts/AllContext'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
-
-const initialState = {
-  loading: false,
-  error: ''
-}
+import Loading from './Loading'
+import { useDispatch, useSelector } from 'react-redux'
+import { setOpToEdit } from '../redux/opToEdit'
+import { setOps} from '../redux/ops'
+import { setOpsValues } from '../redux/opsValues'
+import { setOpsListUpdated } from '../redux/opsListUpdated'
 
 const Operations = () => {
-  const dispatchRedux = useDispatch()
+  const { userId } = useContext(AllContext)
+  const history = useHistory()
+  const dispatch = useDispatch()
   const ops = useSelector((state) => state.ops.value)
   const opsValues = useSelector((state) => state.opsValues.value)
+  const opsListUpdated = useSelector((state) => state.opsListUpdated.value)
   let opsToRender = []
-  const [state, dispatch] = useReducer(useOperationsReducer, initialState)
-  const history = useHistory()
-  
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    axios.get(`http://localhost:3010/users/id/${userId}`)
+      .then((res) => dispatch(setOps(res.data.Operations.reverse())))
+      .catch(error => console.error(error))
+      
+    setLoading(false)
+  }, [userId, opsListUpdated])
+
   const opsFilter = () => {
     if (opsValues.type === 'All' & opsValues.category === 'All') opsToRender = ops.filter(op => op)
     if (opsValues.type === 'All' & opsValues.category != 'All') opsToRender = ops.filter(op => op.category === opsValues.category) 
@@ -31,30 +38,25 @@ const Operations = () => {
 
   const handleChange = e => {
     const value = e.target.value 
-    dispatchRedux(setOpsValues({
+    dispatch(setOpsValues({
       ...opsValues,
       [e.target.name]: value
     }))
   }
 
   const handleUpdate = op => {
-    dispatchRedux(setOpToEdit(op))
+    dispatch(setOpToEdit(op))
     history.push('/edit')
   }
 
   const handleDelete = id => {
-    dispatchRedux(setOpsListUpdated())
-
     axios.delete(`http://localhost:3010/operations/delete/${id}`)
-      .then(res => {
-        dispatch({ type: ACTIONS.DELETE_SUCCESS })
-      })
-      .catch((err) => {
-        dispatch(ACTIONS.DELETE_ERROR)
-      })
+      .then((res) => console.log(`Operation deleted! (${res.status} ${res.statusText})`))
+      .catch((err) => console.log(err))
     
+    dispatch(setOpsListUpdated())
     setTimeout(function () {
-      dispatchRedux(setOpsListUpdated())
+      dispatch(setOpsListUpdated())
     }, 1000)
   }
 
@@ -87,7 +89,7 @@ const Operations = () => {
           </tr>
         </thead>
         <tbody>
-
+          {loading && <Loading />}
           {opsToRender.slice(0, 10).map((op) => (
             <tr key={op.id}>
               <td>{op.concept}</td>
@@ -110,4 +112,3 @@ const Operations = () => {
 }
 
 export default Operations
- //{loading && <Loading />}

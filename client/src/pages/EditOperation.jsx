@@ -5,7 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setOpsValues } from '../redux/opsValues'
 import { setOpsListUpdated } from '../redux/opsListUpdated'
 
@@ -39,7 +39,7 @@ const EditOperation = () => {
         dispatch(setOpsListUpdated())
         setTimeout(function () {
             dispatch(setOpsListUpdated())
-        }, 3000)
+        }, 500)
         history.push("/abm")
     }
 
