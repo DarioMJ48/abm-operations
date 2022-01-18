@@ -1,10 +1,9 @@
 import React from 'react'
-import { useContext } from 'react'
-import { AllContext } from '../contexts/AllContext'
+import { useSelector } from 'react-redux'
 import '../styles/balance.css'
 
 const Balance = () => {
-  const { ops } = useContext(AllContext)
+  const ops = useSelector((state) => state.ops.value)
 
   const calculateBalance = () => {
     let inflows = 0
@@ -15,9 +14,9 @@ const Balance = () => {
     return balance
   }
 
-  const final = calculateBalance()
+  const finalBalance = calculateBalance()
 
-  return <h1 className={final < 0 ? 'minor' : 'mayor'}>Balance: ${final}</h1>
+  return <h1 className={finalBalance < 0 ? 'minor' : 'mayor'}>Balance: ${finalBalance}</h1>
 }
 
 export default Balance

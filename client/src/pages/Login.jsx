@@ -2,13 +2,16 @@ import React, { useEffect } from 'react'
 import { useContext } from 'react'
 import { AllContext } from '../contexts/AllContext'
 import { useHistory, Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setOpsListUpdated } from '../redux/opsListUpdated'
 import axios from 'axios'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as yup from 'yup'
 
-const Register = () => {
-    const { setOpsListUpdated, setUsername, setUserId, setIdUser } = useContext(AllContext)
+const Login = () => {
+    const { setUsername, setUserId } = useContext(AllContext)
     const history = useHistory()
+    const dispatch = useDispatch()
     axios.defaults.withCredentials = true
 
     useEffect(() => {
@@ -18,8 +21,8 @@ const Register = () => {
     }, [])
 
     const initialValues = {
-        email: "",
-        password: "",
+        email: '',
+        password: '',
     }
 
     const validationSchema = yup.object().shape({
@@ -33,9 +36,8 @@ const Register = () => {
                 if (typeof res.data === 'object' && res.data !== null) {
                     setUsername(res.data.username)
                     setUserId(res.data.id)
-                    console.log(res.data.id)
                     history.push("/abm")
-                    setTimeout(() => { setOpsListUpdated(true) }, 1000)    
+                    setTimeout(() => { dispatch(setOpsListUpdated()) }, 500)    
                 } else {
                     alert('INCORRET USERNAME OR PASSWORD.')
                 }
@@ -43,27 +45,28 @@ const Register = () => {
             .catch(err => console.log(err))
     }
 
-    return (
-        <>
-        <h1 className="container">Log In!</h1>
-        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-            <Form>
-                <div className="mb-3">
-                    <label />E-mail
-                    <ErrorMessage name="email" component="div" className="text-danger" />
-                    <Field name="email" placeholder="E-mail..." className="form-control" />
-                </div>
-                <div className="mb-3">
-                    <label />Password
-                    <ErrorMessage name="password" component="div" className="text-danger" />
-                    <Field name="password" placeholder="Password..." className="form-control" />
-                </div>
-                <button type="submit" class="btn btn-success w-100">Log In</button>
-            </Form>
-        </Formik >
-        <Link className="nav-link active" to="/register">Or Register?</Link>
-        </>
+    return (  
+        <div className="position-relative mx-auto" style={{ height: "100vh" }}>
+            <h3 style={{"text-align": "center"}}>ABM Operations</h3>
+            <div className="container position-absolute p-4 mb-2 top-50 start-50 translate-middle bg-white text-dark shadow rounded">
+                <h1 style={{"text-align": "center"}}>Log In</h1>
+                <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                    <Form>
+                        <div className="mb-3">       
+                            <Field name="email" placeholder="E-mail" className="form-control" />
+                            <ErrorMessage name="email" component="div" className="text-danger" />
+                        </div>
+                        <div className="mb-3">
+                            <Field name="password" type="password" placeholder="Password" className="form-control" />
+                            <ErrorMessage name="password" component="div" className="text-danger" />
+                        </div>
+                        <button type="submit" class="btn btn-info w-100 text-white fw-bold">Log In</button>
+                    </Form>
+                </Formik >
+                <Link className="nav-link active" to="/register" style={{"text-align": "center"}}>Or Register?</Link>
+            </div>
+        </div>
     )
 }
 
-export default Register
+export default Login

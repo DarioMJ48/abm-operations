@@ -1,39 +1,61 @@
-import React, { useContext, useRef, useReducer } from 'react'
-import { AllContext } from '../contexts/AllContext'
-import Loading from './Loading'
+import React, { useRef, useReducer} from 'react'
 import useOperationsReducer, { ACTIONS } from '../reducers/useOperationsReducer'
+import { useSelector, useDispatch } from 'react-redux'
+import { setOpToEdit } from '../redux/opToEdit'
+import { setOpsValues } from '../redux/opsValues'
+import { setOpsListUpdated } from '../redux/opsListUpdated'
+import { useHistory } from 'react-router-dom'
+import axios from 'axios'
+
+const initialState = {
+  loading: false,
+  error: ''
+}
 
 const Operations = () => {
-  const { ops, opsValues, setOpToEdit, setOpsValues, setOpsListUpdated, loading, user } = useContext(AllContext)
-  const opsToRender = useRef([])
-  const [state, dispatch] = useReducer(useOperationsReducer, {})
+  const dispatchRedux = useDispatch()
+  const ops = useSelector((state) => state.ops.value)
+  const opsValues = useSelector((state) => state.opsValues.value)
+  let opsToRender = []
+  const [state, dispatch] = useReducer(useOperationsReducer, initialState)
+  const history = useHistory()
   
   const opsFilter = () => {
-    if (opsValues.type === 'All' & opsValues.category === 'All') opsToRender.current = ops.filter(op => op)
-    if (opsValues.type === 'All' & opsValues.category != 'All') opsToRender.current = ops.filter(op => op.category === opsValues.category) 
-    if (opsValues.type != 'All' & opsValues.category === 'All') opsToRender.current = ops.filter(op => op.type === opsValues.type) 
-    if (opsValues.type != 'All' & opsValues.category != 'All') opsToRender.current = ops.filter(op => op.type === opsValues.type && op.category === opsValues.category) 
+    if (opsValues.type === 'All' & opsValues.category === 'All') opsToRender = ops.filter(op => op)
+    if (opsValues.type === 'All' & opsValues.category != 'All') opsToRender = ops.filter(op => op.category === opsValues.category) 
+    if (opsValues.type != 'All' & opsValues.category === 'All') opsToRender = ops.filter(op => op.type === opsValues.type) 
+    if (opsValues.type != 'All' & opsValues.category != 'All') opsToRender = ops.filter(op => op.type === opsValues.type && op.category === opsValues.category) 
   }
   
   opsFilter()
 
   const handleChange = e => {
     const value = e.target.value 
-    setOpsValues({
+    dispatchRedux(setOpsValues({
       ...opsValues,
       [e.target.name]: value
-    })
-    dispatch({type: ACTIONS.CHANGE})
+    }))
   }
 
   const handleUpdate = op => {
-    setOpToEdit(op)
-    dispatch({ type: ACTIONS.UPDATE })
+    dispatchRedux(setOpToEdit(op))
+    history.push('/edit')
   }
 
   const handleDelete = id => {
-    setOpsListUpdated(true)
-    dispatch({ type: ACTIONS.DELETE, payload: { id: id } })
+    dispatchRedux(setOpsListUpdated())
+
+    axios.delete(`http://localhost:3010/operations/delete/${id}`)
+      .then(res => {
+        dispatch({ type: ACTIONS.DELETE_SUCCESS })
+      })
+      .catch((err) => {
+        dispatch(ACTIONS.DELETE_ERROR)
+      })
+    
+    setTimeout(function () {
+      dispatchRedux(setOpsListUpdated())
+    }, 1000)
   }
 
   return (
@@ -65,8 +87,8 @@ const Operations = () => {
           </tr>
         </thead>
         <tbody>
-          {loading && <Loading />}
-          {opsToRender.current.slice(0, 10).map((op) => (
+
+          {opsToRender.slice(0, 10).map((op) => (
             <tr key={op.id}>
               <td>{op.concept}</td>
               <td>{op.amount}</td>
@@ -88,3 +110,4 @@ const Operations = () => {
 }
 
 export default Operations
+ //{loading && <Loading />}

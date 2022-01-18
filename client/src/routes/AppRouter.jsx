@@ -1,12 +1,10 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import Navbar from '../components/Navbar'
-import Balance from '../components/Balance'
-import OperationsList from '../components/OperationsList'
 import Register from '../pages/Register'
 import Login from '../pages/Login'
 import AddOperation from '../pages/AddOperation'
 import EditOperation from '../pages/EditOperation'
+import MyOperations from '../pages/MyOperations'
 
 const AppRouter = () => {
   return (
@@ -26,13 +24,7 @@ const AppRouter = () => {
           </div>
         )} />
         <Route exact path="/abm" render={() => (
-          <div className="container w-100 mb-4">
-            <Navbar />
-            <Balance />
-            <div className="w-75">
-              <OperationsList />
-            </div>
-          </div>
+          <MyOperations />         
         )} />
         <Route exact path="/add" render={() => (
           <div className="container w-50 mb-4">
